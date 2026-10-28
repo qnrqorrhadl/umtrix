@@ -25,7 +25,7 @@ import java.util.Map;
  */
 public class MainActivity extends Activity {
     // 게임이 올라가 있는 주소 (GitHub Pages)
-    private static final String GAME_URL = "https://qnrqorrhadl.github.io/um_trix/";
+    private static final String GAME_URL = "https://qnrqorrhadl.github.io/umtrix/";
     // 인터넷이 전혀 안 될 때 쓰는, 앱 안에 들어 있는 게임
     private static final String OFFLINE_URL = "file:///android_asset/offline/index.html";
 
