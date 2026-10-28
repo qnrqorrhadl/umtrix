@@ -2,6 +2,8 @@ package com.umtris.game;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -9,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -29,6 +32,9 @@ public class MainActivity extends Activity {
     // 인터넷이 전혀 안 될 때 쓰는, 앱 안에 들어 있는 게임
     private static final String OFFLINE_URL = "file:///android_asset/offline/index.html";
 
+    // ★ 앱을 새로 만들어 다시 설치해야 할 때 이 숫자를 올리세요 (게임 코드의 REQUIRED_APP 과 같은 숫자로)
+    private static final int APP_VERSION = 2;
+
     private WebView web;
     private boolean showingOffline = false;
 
@@ -48,6 +54,15 @@ public class MainActivity extends Activity {
         WebSettings settings = web.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
+        settings.setMediaPlaybackRequiresUserGesture(false);   // 터치 없이도 배경음이 바로 나오게
+
+        // 게임이 '앱 버전'을 물어보고, 다운로드 주소를 브라우저로 열 수 있게 해 주는 다리
+        web.addJavascriptInterface(new Object() {
+            @JavascriptInterface public int version() { return APP_VERSION; }
+            @JavascriptInterface public void openUrl(String url) {
+                try { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))); } catch (Exception e) {}
+            }
+        }, "UmApp");
 
         web.setWebViewClient(new WebViewClient() {
             @Override
