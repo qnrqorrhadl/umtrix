@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>const VERSION = "1.4.2";   // ★ 버전은 여기만 고치세요 (메인화면 오른쪽 아래에 표시). 0.0.0 규칙: 버그수정=셋째, 모드·버튼 추가급=둘째, 신규모드·리워크급=첫째</script>
+<script>const VERSION = "1.2.0";   // ★ 버전은 여기만 고치세요 (메인화면 오른쪽 아래에 표시). 0.0.0 규칙: 버그수정=셋째, 모드·버튼 추가급=둘째, 신규모드·리워크급=첫째</script>
 <title>엄승식 쌓기</title>
 <style>
   @font-face { font-family: "Black Han Sans"; font-weight: 400; font-style: normal; font-display: block;
@@ -222,7 +222,7 @@
 
 <canvas id="stage" aria-label="엄승식 글자를 쌓아서 같은 색으로 양쪽 벽을 잇는 게임 화면"></canvas>
 <div id="bar">
-  <p id="hint"><b id="modeTag"></b><kbd>Space</kbd> 떨어뜨리기 · <kbd>←</kbd><kbd>→</kbd> / <kbd>A</kbd><kbd>D</kbd> 옮기기 · <kbd>R</kbd> 초기화 · 같은 색 글자가 양쪽 벽에 이어지면 사라져요</p>
+  <p id="hint"><b id="modeTag"></b></p>
   <div class="btns">
     <button id="reset" type="button">초기화</button>
     <button id="menuBtn" type="button">메인</button>
@@ -254,8 +254,8 @@
   <h1 aria-label="엄트리스"><span>엄</span><span>트</span><span>리</span><span>스</span></h1>
   <p><span class="desk">스페이스바를 눌러 시작</span><span class="touch">화면을 눌러 시작</span></p>
   <div id="modes" role="radiogroup" aria-label="게임 모드">
-    <button type="button" role="radio" data-kind="normal">노멀</button>
     <button type="button" role="radio" data-kind="easy">이지</button>
+    <button type="button" role="radio" data-kind="normal">노멀</button>
     <button type="button" role="radio" data-kind="chaos">카오스</button>
   </div>
   <div id="modeDesc"></div>
@@ -398,7 +398,7 @@ const MODES = {
   easy:   { name: "이지",   cols: 8,  scale: 1,   chaos: false, preview: true, colors: 3, reach: 1.4, grace: 240, center: true },
   chaos:  { name: "카오스", cols: 14, scale: 1,   chaos: true,  preview: false, colors: 6, reach: 1.2, grace: 120 }
 };
-const ORDER = ["normal", "easy", "chaos"];
+const ORDER = ["easy", "normal", "chaos"];
 const DESCS = {
   normal: "기본 규칙",
   easy: "판이 좁고, 다음에 떨어질 색을 미리 보여줘요",
