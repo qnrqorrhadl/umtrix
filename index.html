@@ -556,10 +556,19 @@ retryRename();
     for (const b of tabs) b.setAttribute("aria-pressed", b.dataset.k === k);
     msg("불러오는 중…");
     try {
-      const r = await fetch(FB_URL + "/scores/" + k + ".json?orderBy=%22s%22&limitToLast=10");
+      const r = await fetch(FB_URL + "/scores/" + k + ".json?orderBy=%22s%22&limitToLast=40");
       const d = await r.json();
       if (my !== token) return;
-      const rows = Object.entries(d || {}).map(([key, v]) => ({ key, n: v.n, s: v.s })).sort((a, b) => b.s - a.s);
+      // 같은 이름(또는 같은 기기)은 가장 높은 점수 하나만 보여줌 → 옛 기록이 남아 있어도 중복 없이 최고 점수만
+      const best = new Map();
+      for (const [key, v] of Object.entries(d || {})) {
+        const name = (v.n || "익명").trim() || "익명";
+        const cur2 = best.get(name);
+        const mine = key === uid || (cur2 && cur2.key === uid);
+        if (!cur2 || v.s > cur2.s) best.set(name, { key: mine ? uid : key, n: v.n, s: v.s });
+        else if (mine) cur2.key = uid;
+      }
+      const rows = [...best.values()].sort((a, b) => b.s - a.s).slice(0, 10);
       if (!rows.length) { msg("아직 기록이 없어요. 첫 번째가 되어 보세요!"); return; }
       list.innerHTML = ""; podium.innerHTML = "";
       // 시상대: 2등(왼쪽) · 1등(가운데) · 3등(오른쪽)
