@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>const VERSION = "1.6.4";   // ★ 버전은 여기만 고치세요 (메인화면 오른쪽 아래에 표시). 0.0.0 규칙: 버그수정=셋째, 모드·버튼 추가급=둘째, 신규모드·리워크급=첫째</script>
+<script>const VERSION = "1.6.5";   // ★ 버전은 여기만 고치세요 (메인화면 오른쪽 아래에 표시). 0.0.0 규칙: 버그수정=셋째, 모드·버튼 추가급=둘째, 신규모드·리워크급=첫째</script>
 <title>엄승식 쌓기</title>
 <style>
   @font-face { font-family: "Black Han Sans"; font-weight: 400; font-style: normal; font-display: block;
@@ -457,14 +457,14 @@ let overAt = 0, nextMenuSpawn = 0, menuMax = 60;
 // 게임 모드: 칸 수(판 너비), 블록 크기 배율, 크기 랜덤, 다음 블록 미리보기
 // colors = 쓰는 색 개수, reach = 줄 연결 판정 여유(클수록 느슨), grace = 점선을 넘은 채 버틸 수 있는 시간(프레임, 60 = 1초), center = 항상 가운데서 떨어짐
 const MODES = {
-  normal: { name: "노멀",   cols: 9,  scale: 1,   chaos: false, preview: false, colors: 4, reach: 1.4, grace: 240 },
+  normal: { name: "노멀",   cols: 9,  scale: 1,   chaos: false, preview: true, colors: 4, reach: 1.4, grace: 240 },
   easy:   { name: "이지",   cols: 8,  scale: 1,   chaos: false, preview: true, colors: 3, reach: 1.4, grace: 240, center: true },
   chaos:  { name: "카오스", cols: 14, scale: 1,   chaos: true,  preview: false, colors: 6, reach: 1.2, grace: 120 }
 };
 const ORDER = ["easy", "normal", "chaos"];
 const DESCS = {
-  normal: "기본 규칙",
-  easy: "판이 좁고, 다음에 떨어질 색을 미리 보여줘요",
+  normal: "기본 규칙 · 다음에 떨어질 색을 미리 보여줘요",
+  easy: "판이 좁고, 블록이 항상 가운데에서 떨어져요 · 다음 색 미리보기",
   chaos: "블록 크기가 제각각이고, 판이 넓어요"
 };
 let kind = "normal";             // 지금 고른 모드
