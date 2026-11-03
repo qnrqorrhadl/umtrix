@@ -186,10 +186,10 @@
   #podium .pn { max-width: 100%; margin-top: 2px; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 4px; }
   #podium .pmedal { height: 24px; width: auto; flex: none; }
   #podium .ps { font-size: 12px; color: #ffd23f; margin-bottom: 4px; }
-  #podium .bar { width: 100%; border-radius: 8px 8px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 6px; font: 400 24px var(--font-title, var(--font-body)); color: #222; }
-  #podium .p1 .bar { height: 84px; background: linear-gradient(#ffe27a, #e6a817); }
-  #podium .p2 .bar { height: 60px; background: linear-gradient(#e8ecf2, #9aa3b2); }
-  #podium .p3 .bar { height: 42px; background: linear-gradient(#e9b27a, #b06a2f); }
+  #podium .bar { width: 100%; border-radius: 8px 8px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 6px; font: 400 24px var(--font-title, var(--font-body)); color: #1c1f27; background: #8a90a0; }   /* 시상대는 회색 고정 */
+  #podium .p1 .bar { height: 84px; }
+  #podium .p2 .bar { height: 60px; }
+  #podium .p3 .bar { height: 42px; }
   #podium .pod.me .pn { color: #ffd23f; text-decoration: underline; }
   #podium .pod.empty { opacity: 0.35; }
   #rankList { list-style: none; margin: 0 0 12px; padding: 0; }
@@ -574,10 +574,10 @@ retryRename();
         const bar = document.createElement("div"); bar.className = "bar"; bar.textContent = place;
         pod.append(n, sc, bar); podium.appendChild(pod);
       }
-      rows.slice(3).forEach((r2, i) => {
+      rows.forEach((r2, i) => {   // 기존 점수판: 1~10등 전체를 시상대 아래에 그대로 보여줌
         const li = document.createElement("li");
         if (r2.key === uid) li.className = "me";
-        const a = document.createElement("b"); a.textContent = i + 4;
+        const a = document.createElement("b"); a.textContent = i + 1;
         const n = document.createElement("span"); n.textContent = r2.n || "익명";
         const sc = document.createElement("em"); sc.textContent = r2.s + "점";
         li.append(a, n, sc); list.appendChild(li);
