@@ -1417,7 +1417,7 @@ function finishClear(path) {
   const fx = cx / path.length, fy = cy / path.length;
   floats.push({ x: fx, y: fy, life: 60, text: "+" + POINTS, color: "#ffd23f", size: 26 });
   if (combo >= 2) floats.push({ x: fx, y: fy - 34, life: 80, text: combo + " COMBO! +" + COMBO_UNIT * combo, color: "#ff8f3c", size: 22 });
-  triggerDancer(eggOn ? (combo >= 2 ? "jump" : "headbang") : (combo >= 2 ? "catch" : undefined));   // 콤보일 때는 캐치캐치 춤 (이스터에그 상태에서는 기본 = 헤드뱅잉, 콤보 = 점프)
+  triggerDancer(eggOn || (vip && songPick === "b") ? (combo >= 2 ? "jump" : "headbang") : (combo >= 2 ? "catch" : undefined));   // 콤보일 때는 캐치캐치 춤 (이스터에그 상태에서는 기본 = 헤드뱅잉, 콤보 = 점프)
   score += POINTS + bonus;
   if (!recShown && recBest > 0 && score > recBest) { recShown = true; floats.push({ x: (BL + BR) / 2, y: H * 0.34, life: 110, text: "신기록!", color: "#ffd23f", size: 40 }); }
   updateScore();
